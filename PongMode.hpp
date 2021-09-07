@@ -24,24 +24,37 @@ struct PongMode : Mode {
 	//----- game state -----
 
 	glm::vec2 court_radius = glm::vec2(7.0f, 5.0f);
-	glm::vec2 paddle_radius = glm::vec2(0.2f, 1.0f);
-	glm::vec2 ball_radius = glm::vec2(0.2f, 0.2f);
+	glm::vec2 meter_size = glm::vec2(0.2f, 1.0f);
+	glm::vec2 ball_radius = glm::vec2(0.15f, 0.15f);
+	glm::vec2 flag = glm::vec2(2.0f, 2.0f);
+	glm::vec2 flag_radius = glm::vec2(0.3f, 0.3f);
 
-	glm::vec2 left_paddle = glm::vec2(-court_radius.x + 0.5f, 0.0f);
-	glm::vec2 right_paddle = glm::vec2( court_radius.x - 0.5f, 0.0f);
+	glm::vec2 meter = glm::vec2(-court_radius.x + 0.5f, court_radius.y - 1.3f);
+	float meter_rate = 1.5f;
+	float meter_fill = 0.0f;
+	bool is_charging = false;
+	bool space_pressed = false;
+	bool left_pressed = false;
+	bool right_pressed = false;
+	float turn_rate = 2.5f;
+	float shot_power = -2.5f;
+	// glm::vec2 right_paddle = glm::vec2( court_radius.x - 0.5f, 0.0f);
 
 	glm::vec2 ball = glm::vec2(0.0f, 0.0f);
-	glm::vec2 ball_velocity = glm::vec2(-1.0f, 0.0f);
+	glm::vec2 ball_velocity = glm::vec2(0.0f, 0.0f);
 
 	uint32_t left_score = 0;
 	uint32_t right_score = 0;
 
-	float ai_offset = 0.0f;
-	float ai_offset_update = 0.0f;
+	float PI = 3.1416f;
+	float ball_angle = -PI / 2.0f;
+	float gravity = -1.5f;
+	float bounce_constant = 0.3f;
+	float drag = 0.4f;
 
 	//----- pretty gradient trails -----
 
-	float trail_length = 1.3f;
+	float trail_length = 0.5f;
 	std::deque< glm::vec3 > ball_trail; //stores (x,y,age), oldest elements first
 
 	//----- opengl assets / helpers ------
